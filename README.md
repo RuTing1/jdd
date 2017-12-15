@@ -9,8 +9,8 @@
                    'SVM':svm_classifier, 
                    'RF':random_forest_classifier,
                    'AB':AdaBoost_classifier,
-#                   'GBDT':GBDT_classifier,
-#                   'XGB':XGBoost_classifier
+                   'GBDT':GBDT_classifier,
+                   'XGB':XGBoost_classifier
         }
 
 
