@@ -1,16 +1,16 @@
 ### 1. small_task:常用分类模型统一建模标准
 1.设置常用的分类模型，目前有以下几类模型，可通过加函数的方式添加想加入的分类模型进行训练
  #初步选取的模型
-    test_classifiers = ['NB', 'KNN', 'LR','DT','SVM', 'RF'] \n
-    classifiers = {'NB':naive_bayes_classifier,   \n
-                   'KNN':knn_classifier,  \n
-                   'LR':logistic_regression_classifier,   \n
-                   'DT':decision_tree_classifier,    \n
-                   'SVM':svm_classifier,    \n
-                   'RF':random_forest_classifier,   \n
-                   'AB':AdaBoost_classifier,    \n
-                   'GBDT':GBDT_classifier,    \n
-                   'XGB':XGBoost_classifier    \n
+    test_classifiers = ['NB', 'KNN', 'LR','DT','SVM', 'RF'] <\br>
+    classifiers = {'NB':naive_bayes_classifier,   <\br>
+                   'KNN':knn_classifier,  <\br>
+                   'LR':logistic_regression_classifier,  <\br><\br>
+                   'DT':decision_tree_classifier,    <\br>
+                   'SVM':svm_classifier,    <\br>
+                   'RF':random_forest_classifier,   <\br>
+                   'AB':AdaBoost_classifier,    <\br>
+                   'GBDT':GBDT_classifier,    <\br>
+                   'XGB':XGBoost_classifier   <\br>
         }
 
 
