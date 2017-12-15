@@ -3,14 +3,14 @@
  #初步选取的模型
     test_classifiers = ['NB', 'KNN', 'LR','DT','SVM', 'RF']  </br>
     classifiers = {'NB':naive_bayes_classifier,   </br>
-     <br> <br> <br> 'KNN':knn_classifier,  </br>
-     <br> <br> <br>               'LR':logistic_regression_classifier,  </br>
-      <br> <br> <br>              'DT':decision_tree_classifier,    </br>
-       <br> <br> <br>             'SVM':svm_classifier,    </br>
-      <br> <br> <br>              'RF':random_forest_classifier,   </br>
-       <br> <br> <br>             'AB':AdaBoost_classifier,    </br>
-        <br> <br> <br>            'GBDT':GBDT_classifier,    </br>
-        <br> <br> <br>            'XGB':XGBoost_classifier   </br>
+                   'KNN':knn_classifier,  </br>
+                    'LR':logistic_regression_classifier,  </br>
+                    'DT':decision_tree_classifier,    </br>
+                   'SVM':svm_classifier,    </br>
+                   'RF':random_forest_classifier,   </br>
+                   'AB':AdaBoost_classifier,    </br>
+                    'GBDT':GBDT_classifier,    </br>
+                 'XGB':XGBoost_classifier   </br>
         }
 
 
