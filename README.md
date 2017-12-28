@@ -1,5 +1,5 @@
 # jdd
-###概率分和征信分分数映射
+### 概率分和征信分分数映射
 + y_test['odds'] = y_test['prob']/(1-y_test['prob'])
 + y_test['score'] = (np.log(y_test['odds'])*(20/np.log(2))+600).astype(int)
 
