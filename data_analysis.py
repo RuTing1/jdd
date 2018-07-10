@@ -38,6 +38,80 @@ def read_sql(sql,verbose=False):
         df.printSchema()
     return df
 
+#异常缺失值处理
+def datareplacena(df,to_replace=None,feature_list=None):
+    '''
+    replace values in to_replace to None in spark 2.1.1 using sql.functions.when
+    @param df:
+    @param to_replace:
+    @param feature_list:
+    return:
+    '''
+    if not feature_list:
+        feature_list = df.columns
+    if not to_replace:
+        to_replace = ['N','\\N','-1',-1,'9999',9999,'-9999',-9999]
+    for feature in feature_list:
+        df = df.withColumn(feature,fn.when(~fn.col(feature).isin(to_replace),fn.col(feature)))
+    return df
+
+
+#剔除高缺失值低方差的特征
+def low_mis_high_std_cols(df,IDcol,target,feature_list=None,missing_ratio=0.5,std_threshold=1):
+    """
+    get columns with low missing rate and not low std
+    @param:df 需要统计的数据
+    @feature_list:建议 [col for col in df.columns if col not in [IDcol,TARGETcol]]
+    @param:missing_ratio 缺失值删除的占比阈值
+    @param:std_threshold 方差过小的删除阈值
+    return: info_cols 剔除缺失值过多和方差过小变量后变量组
+    """
+    info_cols = []
+    df = df.drop(IDcol).drop(target)
+    cnt = df.count()
+    if not feature_list:
+        feature_list = df.columns
+    df_desb = datatypecast(df.describe())
+    #df_mis = df.agg(*[(1-(fn.count(c)/fn.count('*'))).alias(c+'_missing') for c in feature_list])
+    for col in feature_list:
+        if df_desb.select(col).collect()[0][0] > missing_ratio*cnt: #获得缺失率不超过阈值的特征
+            #normlizer = Normalizer()  #改进方案：先归一化再求方差
+            if df_desb.select(col).collect()[2][0] > std_threshold: #获得方差超过阈值的特征
+                info_cols.append(col)
+    return info_cols
+
+
+#剔除共线性强的特征
+def delete_colline(df,IDcol=None,target=None,colline_threshold=0.8):
+    """
+    drop columns with high colline
+    @param:df 原始数据
+    @param:IDcol 数据唯一标识符
+    @param:target 目标变量
+    @param:threshold 变量相关性阈值
+    return:共线性较低的变量名称
+    """
+    drop_cols,corr = [],[]
+    cor_cols = [col for col in df.columns if col not in [IDcol,target]]
+    #建立一个相关性矩阵
+    len_cor = len(cor_cols)
+    for i in range(0,len_cor):
+        if cor_cols[i] in drop_cols:
+            continue
+        for j in range(i+1,len(cor_cols)):
+            if cor_cols[j] in drop_cols:
+                continue
+            corr_value = abs(df.corr(cor_cols[i],cor_cols[j],'pearson'))
+            if corr_value > colline_threshold:
+                corr_i = abs(df.corr(cor_cols[i],target,'pearson'))
+                corr_j = abs(df.corr(cor_cols[j],target,'pearson'))
+                if corr_i>= corr_j:
+                    drop_cols.append(cor_cols[j])
+                else:
+                    drop_cols.append(cor_cols[i])
+    return [col for col in df.columns if col not in drop_cols]
+
+
 def dataeda(df,key,tbl,cols=None,resultpath=None):
     '''
     some eda abount df,including count,key distinct count,null rate
