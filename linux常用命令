@@ -1,0 +1,174 @@
+#文件类型
+file picture.jpg
+#创建符号链接：
+ln -s ../fun dir1/fun-sys
+#复制
+cp file1 file2
+cp -i file1 file2 #通知
+cp file1 file2 dir1 #file1 file2 复制到dir1中
+cp dir1/* dir2  #将dir1中的内容复制到dir2中
+cp -r dir1 dir2 #讲dir1复制到dir2中
+#移除和重命名文件
+mv item1 item2 #将item1移动为item2
+mv file1 file2 dir1 #将file1 file2的移动到dir1中
+#删除文件和目录
+rm -r file1 dir1 #删除file1和dir1
+rm -rf file1 dir1 # 删除file1和dir1且不通知
+#显示命令的类型
+type ls
+#显示可执行程序的位置
+which ls
+#获得shell内置命令的帮助文档
+help ls
+mkdir --help # 显示命令的使用信息
+
+#文件类型
+file picture.jpg
+#创建符号链接：
+ln -s ../fun dir1/fun-sys
+#复制
+cp file1 file2
+cp -i file1 file2 #通知
+cp file1 file2 dir1 #file1 file2 复制到dir1中
+cp dir1/* dir2  #将dir1中的内容复制到dir2中
+cp -r dir1 dir2 #讲dir1复制到dir2中
+#移除和重命名文件
+mv item1 item2 #将item1移动为item2
+mv file1 file2 dir1 #将file1 file2的移动到dir1中
+#删除文件和目录
+rm -r file1 dir1 #删除file1和dir1
+rm -rf file1 dir1 # 删除file1和dir1且不通知
+#显示命令的类型
+type ls
+#显示可执行程序的位置
+which ls
+#获得shell内置命令的帮助文档
+help ls
+mkdir --help # 显示命令的使用信息
+#使用别名创建命令
+alias foo='cd /usr; ls; cd-'
+unalias foo #删除别名
+#标准输出标准输入都重定向进一个文件
+cp file1 file2
+cp -i file1 file2 #通知
+cp file1 file2 dir1 #file1 file2 复制到dir1中
+cp dir1/* dir2  #将dir1中的内容复制到dir2中
+cp -r dir1 dir2 #讲dir1复制到dir2中
+#移除和重命名文件
+mv item1 item2 #将item1移动为item2
+mv file1 file2 dir1 #将file1 file2的移动到dir1中
+#删除文件和目录
+rm -r file1 dir1 #删除file1和dir1
+rm -rf file1 dir1 # 删除file1和dir1且不通知
+#显示命令的类型
+type ls
+#显示可执行程序的位置
+which ls
+#获得shell内置命令的帮助文档
+help ls
+mkdir --help # 显示命令的使用信息
+#使用别名创建命令
+alias foo='cd /usr; ls; cd-'
+unalias foo #删除别名
+#标准输出标准输入都重定向进一个文件
+ls -l &> ls-output.txt
+#合并文件
+cat movie* >movie
+#管道 一个命令的标准输入成为另一个命令的标准输出
+ls -l /usr/bin | less
+#删除文件中的重复行
+uniq text.txt
+ls -l /usr/bin | uniq | less
+ls -l /usr/bin | uniq -d | less #查看重复行列表
+#打印行数、字数和字节数
+wc -l ls-output.txt  
+#打印匹配行
+ls -l /usr/bin | uniq | grep zip
+ls -l /usr/bin | uniq | grep -i zip #忽略大小写
+ls -l /usr/bin | uniq | grep -v zip #输出不匹配项
+#tee 从标准输入读取数据，并同时输出和进行操作
+ls -l /usr/bin | uniq | tee ls.txt | grep zip
+#删除文本
+dd #删除当前行
+dG #删除当前行到文件末尾
+d20G # 删除当前行到文件第20行
+5dd #删除当前行和之后4行
+#全局搜索和替换
+:%s/Line/line/g
+#编辑多个文件
+vi file1 file2 file3 ...
+#文件压缩gzip
+ls -l /etc >foo.txt
+gzip foo.txt
+gunzip foo.txt
+gzip -tv foo.txt.gz #检验压缩文件的完整性
+#文件压缩zip
+
+#sort对文本进行排序
+sort --key=1,1 --key=2n test.txt #按第一个字段排序，第二个字段按数值排序
+sort -k 3.7nbr -k 3.1nbr -k 3.4nbr test.txt #nr数值逆排序,删除日期字段中开头的空格,3.7从第三个字段的第7个字符开始排序
+#切片和切块
+cut -d ':' -f 1 /etc/passwd | head # 提取每行的第一个字段，分隔符是':'
+#替换或删除字符
+tr --help
+tr test.txt a-z A-Z
+echo "aaabbbccc" | tr -s ab  # 剔除重复出现的ab abccc
+sed -n '/SUSE/p' test.txt #正则查找匹配行
+sed -n '/SUSE/!p' test.txt #正则查找不匹配行
+
+#脚本文件
+#!/bin/bash
+#this is our first script
+echo "Hello World!"
+CURRENT_TIME=$(date +"%x %r %Z")
+foo=0 #global variable foo
+funct_1(){
+         local foo
+         foo=1
+         echo "funct_1: foo = $foo"
+         return
+}
+#if
+x=5
+if [$x = 5]; then
+        echo "x equals 5"
+elif [$x = 6]; then
+        echo "x equals 6"
+else
+        echo "$x"
+fi
+
+
+
+#读取键盘输入
+#!/bin/bash
+echo -n  "Please enter an integer -> "
+read var1 var2 var3 var4
+echo "var1='$var1'"
+
+#while 
+count=1
+while [$count -le 5];do
+        echo $count
+        count=$((count+1))
+done
+echo "finished"
+
+#case 
+read -p "Please enter selection [A,B,C or D]>"
+
+case $REPLY in
+        d|D)  echo "program terminated"
+              exit
+              ;;
+        a|A) echo "Hostname: $Hostname"
+             uptime
+             ;;
+        *) echo "Invalid entry" >&2
+             exit 1
+             ;;
+esac
+
+# for
+for i in {A..D};do echo $i;done
+
