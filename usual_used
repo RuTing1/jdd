@@ -7,3 +7,10 @@ max_partition(){
     echo ${max_part:3:10}
 }
 date1=`max_partition 'ft_app.ftapp_ybr_a_s_m'`
+
+#获取时间
+yesterday=`date +"%Y-%m-%d" -d "-1 days"`
+today=`date +"%Y%m%d"`
+date_ago=`date -d "$date1 -32 days" +"%Y-%m-%d"`
+
+
