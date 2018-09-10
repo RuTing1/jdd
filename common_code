@@ -1,0 +1,88 @@
+from pyspark.sql import SparkSession
+from pyspark.sql.types import FloatType,IntegerType
+
+#启环境
+spark = SparkSession.builder.appName("dataprocess").enableHiveSupport().getOrCreate()
+spark.sparkContext.setLogLevel('WARN')
+
+#分类目标变量映射
+stringIndexer = StringIndexer(inputCol="is_buy", outputCol="indexed")
+si_model = stringIndexer.fit(data)
+
+def extract(row):
+    """
+    split vector into columns
+    @example:df.rdd.map(extract).toDF()
+    """
+    return (row[IDcol],)+(row['label'],) + tuple(row.probability.toArray().tolist())
+
+#时间类特征处理
+def datatimepro(df,feature_time=None,apply_date="apply_date"):
+    '''
+    caculate date diff,using apply date
+    :param df:
+    :param feature_time:
+    :param apply_date:
+    :return:
+    '''
+    if not feature_time:
+        feature_time = df.columns
+    for feature in feature_time:
+        df = df.withColumn(feature,datediff(to_date(df[apply_date]),to_date(df[feature])))
+        df = df.withColumn(feature,fn.when(df[feature]<0,0).otherwise(df[feature]))
+    return df
+data = data.withColumn('apply_date',fn.lit('2018-7-30'))
+data = datatimepro(data,feature_time=time_feas,apply_date='apply_date')
+
+#统计每列数据的缺失情况
+df_miss_cols = df.agg(*[(1- (fn.count(c)/fn.count('*'))).alias(c + '_missing') for c in df.columns])
+print('###############The missing information for df is:###############',df_miss_cols.show())
+#移除行缺失值阈值为thresh的行
+df_drop_rows = df.dropna(thresh=3)
+#为缺失值填充均值,binary_vars为2分类变量，无法填充0.5类小数为均值
+means = df.agg(*[fn.mean(c).alias(c) for c in df.columns if c not in class_vars]).toPandas().to_dict('records')[0]
+df = df.fillna(means)
+
+# 数据特征类别划分
+feas_type = {}
+df_type = data.dtypes #各特征类型
+for i in range(0,len(df_comb_all.columns)):
+    feas_type[df_type[i][0]] = df_type[i][1]
+string_feas = {k:v for k,v in feas_type.items() if v=='string' k not in [IDcol]}
+#continue_feas = {k:v for k,v in feas_type.items() if v=='string' k not in [IDcol]}
+
+#数据类型转化
+for feature in string_feas.keys():
+    df = df.withColumn(feature,df[feature].cast(IntegerType()))
+    
+#用于训练模型的特征格式
+assm_feas = [col for col in data.columns if col not in [IDcol]]
+vecAssembler = VectorAssembler(inputCols=assm_feas, outputCol="features")
+data_assm = vecAssembler.transform(data)
+
+#分层采样
+data_trans_sampled = data_trans.sampleBy("label", fractions={0: 0.2, 1: 1}, seed=seed)
+#数据集划分
+(trainingData, testingData) = data_trans_sampled.randomSplit([0.7, 0.3],seed=seed)
+
+#决策树类模型特征重要性记录
+def trainModelTest(train, features, classifier):
+    featureAssembler =VectorAssembler(inputCols=features, outputCol="features")
+    train = featureAssembler.transform(train)
+    model = classifier.fit(train)
+    fi = model.featureImportances
+    fi_list = []
+    for i in range(0, len(features)):
+        fi_list.append([features[i],np.float64(fi[i]).item()])
+    df_feasi = spark.createDataFrame(fi_list, ["features", "importance"])
+    df_feasi = df_feasi.sort(df_feasi.importance.desc())
+    df_feasi = df_feasi.withColumn('importance',fn.round(df_feasi.importance,3))
+    print('features importance are:')
+    df_feasi.show()
+    train = train.drop('features')
+    return df_feasi
+
+
+#数据存储
+df.write.mode("overwrite").saveAsTable('ft_tmp.test')
+
