@@ -37,20 +37,8 @@ target = 'is_buy'
 def get_data():
     #准备数据源,[表名，dt，字段（第一个字段为主key）]
     target_df = spark.sql("SELECT all_users.jdpin jdpin") #取得目标用户
-    tbls ={'tb0':["ft_app.ftapp_ybr_a_s_m",'dt',['jdpin','mob_bt','danbizuida','dizhiwendingxing','dingdanshu','shifujine']],
-           'tb1':["ft_app.ftapp_zr_s_m",'dt',['user_log_acct','amt_total_offer']],
-           'tb2':["dmt.dmt_tags_yhj_cnhk_pred_model_a_d",'dt',['user_id','pay_syt_f0014']],
-           'tb3':["dmt.dmt_tags_yhj_cnhk_pred_model_1_a_d",'dt',['user_id','jdmall_up_m0016','jdmall_up_m0001']],
-           'tb4':["dmt.dmt_tags_yhj_cnhk_pred_model_03_a_d",'dt',['user_id','jdmall_user_p0035','jdmall_jdmuser_p0002816','jdmall_user_p0033']],
-           'tb5':["dmt.dmt_tags_yhj_cnhk_pred_model_05_a_d",'dt',['user_id','mem_mem_f0005266']],
-           'tb6':["ft_app.ftapp_ybr_b_s_m",'dt',['user_log_acct','sku_cnt_last_12','user_ord_until_now']]
-           }
     tbls_feas = [] 
     for i in range(0,len(tbls)):
-        tbl_index = 'tb' + str(i)
-        tbls[tbl_index].append(str(spark.sql("SELECT MAX("+tbls[tbl_index][1]+") FROM "+ tbls[tbl_index][0]).collect()[0][0])) #计算每一张数据表的最新更新时间
-        tbls_feas.append(spark.sql("SELECT a.jdpin,b."+ ',b.'.join(tbls[tbl_index][2][1:]) + " FROM " + targert_table +" LEFT JOIN "+ \
-                  tbls[tbl_index][0] + " b ON a.jdpin = b." +tbls[tbl_index][2][0] + " AND b."+tbls[tbl_index][1]+"='"+tbls[tbl_index][3]+"'"))
     #以存量用户和潜在用户作为左连接，将各表连接起来
     df_comb_all = target_df
     for df in tbls_feas:
@@ -266,7 +254,7 @@ if __name__ == '__main__':
     print('preprocessing missing features ...')
     df = datareplacena(df)
     print('saving data with missing features done ...')
-    df.write.mode('overwrite').saveAsTable('ft_tmp.yhj_sleepuser_v0')
+    df.write.mode('overwrite').saveAsTable('ft_tmp.')
     print('preprocessing different datatype features ...')
     print('preprocessing dateType features ...')
     dateType = []
