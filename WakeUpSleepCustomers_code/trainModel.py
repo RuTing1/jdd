@@ -102,7 +102,7 @@ def trainModel(classifier, paramGrid, train, validation):
 if __name__ == '__main__':   
     print('loading data ...')
     #实验数据
-    data = spark.sql('select * from ft_tmp.yhj_lx_clean_data_400w_v3')
+    data = spark.sql('select * from ft_tmp.')
     data = data.na.fill(0)
     data = data.select('*').limit(10000)
     print('get train and validation datasets ...')
