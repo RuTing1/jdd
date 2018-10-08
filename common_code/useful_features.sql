@@ -1,9 +1,18 @@
 #!/bin/bash
 #author:dingru
-#create time: 2018-09-10
-#This script is used to extract useful features from tables such as ybrb|zr|yuheng
+#create time: 2018-10-08
+#This script is used to extract useful features from tables such as ybrb|zr
+#example:  sh useful_features.sh Y  #命令行后面跟任意参数表示重新提取当前日期的useful_features,否则不重新提取
+
+run_mark=$1   #当要重新训练useful_features时，输入'Y',否则输入 'N'
+
 yesterday=`date +"%Y-%m-%d" -d "-1 days"`
 today=`date +"%Y%m%d"`
+
+#标记跑数据的日期，方便对日志进行追踪
+echo '##################################################################'
+echo '################      useful_features'$today'     ################'
+echo '##################################################################'
 
 max_partition(){
     partition="set hive.cli.print.header=flase;
@@ -12,27 +21,97 @@ max_partition(){
     echo ${max_part:3:10}
 }
 
-date2=`max_partition 'ft_app.ftapp_ybr_b_s_m'`
-date3=`max_partition 'ft_app.ftapp_zr_s_m'`
-#date4=`max_partition 'dmt.dmt_tags_yuheng_score_params_jdmall_a_d'`
-#date5=`max_partition 'dmt.dmt_tags_yuheng_score_params_a_d'`
+tables=(ft_app.ftapp_ybr_b_s_m ft_app.ftapp_zr_s_m)
+#建模前各表最新数据监控
+for ((i=0;i<${#tables[@]};i++)); do
+        dates[$i]=`max_partition ${tables[i]}`
+done
 
-#统计各表数据量
-cnt2=`hive -S -e "select count(*) from ft_app.ftapp_ybr_b_s_m where dt='${date2}'"`
-cnt3=`hive -S -e "select count(*) from ft_app.ftapp_zr_s_m where dt='${date3}'"`
-#cnt4=`hive -S -e "select count(*) from dmt.dmt_tags_yuheng_score_params_jdmall_a_d where dt='${date4}'"`
-#cnt5=`hive -S -e "select count(*) from dmt.dmt_tags_yuheng_score_params_a_d where dt='${date5}'"`
-#输出各表最新日期以及统计数据结果
-echo "ft_app.ftapp_ybr_b_s_m :'${date2}':$cnt2"
-echo "ft_app.ftapp_zr_s_m  :'${date3}':$cnt3"
-#echo "dmt.dmt_tags_yuheng_score_params_jdmall_a_d :'${date4}':$cnt4"
-#echo "dmt.dmt_tags_yuheng_score_params_a_d :'${date5}':$cnt5"
+sql0="
+USE ft_tmp;
+CREATE TABLE IF NOT EXISTS useful_features_from_bz(
+                user_id                               STRING   COMMENT    '用户pin',
+                user_ord_until_now                    DOUBLE   COMMENT    ,
+                sale_ord_cnt_last_12                  DOUBLE   COMMENT    ,
+                sku_cnt_last_12                       DOUBLE   COMMENT    ,
+                actu_pay_amt_last_12                  DOUBLE   COMMENT    ,
+                sale_amt_avg_curr                     DOUBLE   COMMENT    ,
+                sale_amt_avg_last_3                   DOUBLE   COMMENT    ,
+                sale_amt_avg_last_6                   DOUBLE   COMMENT    ,
+                sale_amt_avg_last_12                  DOUBLE   COMMENT    ,
+                sale_amt_per_ord_max_last_12          DOUBLE   COMMENT    ,
+                xiaofeiyuefei                         DOUBLE   COMMENT    ,
+                dingdanshu                            DOUBLE   COMMENT    ,
+                shifujine                             DOUBLE   COMMENT    ,
+                danbizuida                            DOUBLE   COMMENT    ,
+                sale_amt_per_ord_min_last_12          DOUBLE   COMMENT    ,
+                amt_actual_payment                    DOUBLE   COMMENT    ,
+                amt_pay_order                         DOUBLE   COMMENT    ,
+                amt_daofu_order                       DOUBLE   COMMENT    ,
+                amt_on_line_order                     DOUBLE   COMMENT    ,
+                amt_total_offer                       DOUBLE   COMMENT    ,
+                amt_full_minus_offer                  DOUBLE   COMMENT    ,
+                amt_dq_and_jq_pay                     DOUBLE   COMMENT    ,
+                amt_gift_cps_pay                      DOUBLE   COMMENT    ,
+                amt_rebate                            DOUBLE   COMMENT    ,
+                amt_ziti_order                        DOUBLE   COMMENT    ,
+                amt_lock_order                        DOUBLE   COMMENT    ,
+                amt_pause_order                       DOUBLE   COMMENT    ,
+                amt_object_order                      DOUBLE   COMMENT    ,
+                amt_virtual_order                     DOUBLE   COMMENT    ,
+                amt_game_order                        DOUBLE   COMMENT    ,
+                amt_lottery_order                     DOUBLE   COMMENT    ,
+                amt_order_book                        DOUBLE   COMMENT    ,
+                amt_order_car                         DOUBLE   COMMENT    ,
+                amt_order_digi                        DOUBLE   COMMENT    '',
+                amt_order_elec                        DOUBLE   COMMENT    '',
+                amt_order_fashion                     DOUBLE   COMMENT    '',
+                amt_order_food                        DOUBLE   COMMENT    '',
+                amt_order_gift                        DOUBLE   COMMENT    '',
+                amt_order_home                        DOUBLE   COMMENT    '',
+                amt_order_jewelry                     DOUBLE   COMMENT    '',
+                amt_order_med                         DOUBLE   COMMENT    '',
+                amt_order_sports                      DOUBLE   COMMENT    '',
+                amt_order_emor                        DOUBLE   COMMENT    '',
+                amt_order_mor                         DOUBLE   COMMENT    '',
+                amt_order_aft                         DOUBLE   COMMENT    ',
+                amt_order_nig                         DOUBLE   COMMENT    ,
+                amt_order_midnig                      DOUBLE   COMMENT    ',
+                cnt_order                             DOUBLE   COMMENT    '',
+                cnt_sku                               DOUBLE   COMMENT    '',
+                cnt_pay_order                         DOUBLE   COMMENT    '',
+                cnt_daofu_order                       DOUBLE   COMMENT    '',
+                cnt_on_line_order                     DOUBLE   COMMENT    '',
+                cnt_ziti_order                        DOUBLE   COMMENT    '',
+                cnt_object_ord                        DOUBLE   COMMENT    '',
+                cnt_virtual_ord                       DOUBLE   COMMENT    '',
+                cnt_game_order                        DOUBLE   COMMENT    '',
+                cnt_lottery_order                     DOUBLE   COMMENT    '',
+                cnt_order_book                        DOUBLE   COMMENT    '',
+                cnt_order_elec                        DOUBLE   COMMENT    '',
+                cnt_order_food                        DOUBLE   COMMENT    '',
+                cnt_order_gift                        DOUBLE   COMMENT    '',
+                cnt_order_med                         DOUBLE   COMMENT    '',
+                cnt_order_sports                      DOUBLE   COMMENT    '',
+                cnt_order_emor                        DOUBLE   COMMENT    '',
+                cnt_order_mor                         DOUBLE   COMMENT    '',
+                cnt_order_aft                         DOUBLE   COMMENT    '',
+                cnt_order_nig                         DOUBLE   COMMENT    '',
+                cnt_order_midnig                      DOUBLE   COMMENT    '',
+                pct_amt_daofu_vs_ol                   DOUBLE   COMMENT    '',
+                avg_amt_order                         DOUBLE   COMMENT    '',
+                avg_amt_pay_order                     DOUBLE   COMMENT    '',
+                avg_amt_on_line_order                 DOUBLE   COMMENT    '',
+                avg_amt_object_order                  DOUBLE   COMMENT    ''
+)COMMENT '建模特征表' PARTITIONED BY (dt STRING COMMENT '操作日期')
+ROW FORMAT DELIMITED FIELDS TERMINATED BY '\t' STORED AS TEXTFILE;
+"
 
-#数据读取
-sql="
+sql1="
 SET hive.support.quoted.identifiers=None;
 USE ft_tmp;
-CREATE TABLE if not EXISTS ft_tmp.features_from_bz_${today} AS
+ALTER TABLE useful_features_from_bz DROP IF EXISTS PARTITION(dt='${today}');
+INSERT OVERWRITE TABLE useful_features_from_bz PARTITION(dt='${today}')
 SELECT ybrb.user_id
       ,\`(user_id)?+.+\` 
     FROM 
@@ -53,12 +132,11 @@ SELECT ybrb.user_id
                 ,danbizuida
                 ,sale_amt_per_ord_min_last_12
             FROM ft_app.ftapp_ybr_b_s_m 
-            WHERE dt='${date2}'
+            WHERE dt='${dates[0]}'
         ) ybrb
         LEFT JOIN 
         (
         SELECT   user_log_acct user_id
-                ,user_aging
                 ,amt_actual_payment
                 ,amt_pay_order
                 ,amt_daofu_order
@@ -118,28 +196,41 @@ SELECT ybrb.user_id
                 ,avg_amt_on_line_order
                 ,avg_amt_object_order
             FROM ft_app.ftapp_zr_s_m
-            WHERE dt ='${date3}'
+            WHERE dt ='${dates[1]}'
         )zr ON ybrb.user_id = zr.user_id
---        LEFT JOIN 
---        (
---       SELECT \`(etl_dt|user_key|jdmall_jdmuser_p0002816|dt)?+.+\` 
---            FROM dmt.dmt_tags_yuheng_score_params_jdmall_a_d
---            WHERE dt = '${date4}'
---        )yha ON ybrb.user_id = yha.user_id
---        LEFT JOIN
---        (
---        SELECT \`(etl_dt|user_key|cs_cs_f0002020|dt)?+.+\` 
---            FROM dmt.dmt_tags_yuheng_score_params_a_d
---            WHERE dt = '${date5}'
---        )yhb ON ybrb.user_id=yhb.user_id
         ;"
 
-if [[ $cnt2 -lt  1000 || $cnt3 -lt  1000 ]]; then
-        echo "there are empty tables!!!"
-else
-        hive -S -e "$sql"
+#建模前各表数据量统计
+for ((i=0;i<${#tables[@]};i++)); do
+        cnt[$i]=`hive -S -e "select count(*) from ${tables[i]} where dt='${dates[i]}'"`
+        echo "${tables[i]}:${dates[i]}:$cnt"
+        if [[ ${cnt[i]} -lt 1000 ]]; then
+                echo "${tables[i]} is empty table!!!"
+                flag=1
+                break
+        fi
+done
+
+
+if [[ $flag -ne 1 ]]; then
+        echo "create table if not exists..."
+        hive -S -e "$sql0" &&
+        #dates_new=`max_partition ft_tmp.useful_features_from_bz`
+        if [[ $run_mark == "Y" ]]; then
+                echo "extract useful featutres for today..."
+                hive -S -e "$sql1"
+        else 
+                echo "not extract useful featutres for today..."
+                echo "max_partition for ft_tmp.useful_features_from_bz is:"
+                echo `max_partition ft_tmp.useful_features_from_bz`
+        fi
 fi
 
 
 
-
+#if [[ $dates_new -lt $today ]]; then   #对useful_features_from_bz的最新时间进行判断，若小于当前日期则执行SQL1
+        #feas=($(hive -S -e "DESC ft_tmp.useful_features_from_bz" | awk '{print $1}'))
+                #for ((i=0;i<${#feas[@]};i++)); do
+                        #hive -S -e "select '$today','${feas[i]}', count(${feas[i]})/count(*) from ft_tmp.useful_features_from_bz;">>yhj_feas_missingratio.csv
+                #done
+#fi
