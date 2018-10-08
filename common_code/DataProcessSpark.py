@@ -34,7 +34,7 @@ from pyspark.sql.functions import lit,unix_timestamp,datediff,to_date,col,create
     # 高缺失率低方差数据剔除
     from DataProcessSpark import FilterLowMisHighStdFeatures
     flmh = FilterLowMisHighStdFeatures(ignor_cols, missing_ratio=0.5, std_threshold=1)
-        # IDcol key字段，如jdpin
+        # IDcol key字段，
         # target 分类模型目标字段，如 is_buy
         # ignor_cols 不需要根据信息量进行筛选的特征list
         # missing_ratio:默认为0.5,如设置为a,则缺失率>=a的特征都会被过滤掉
@@ -43,7 +43,7 @@ from pyspark.sql.functions import lit,unix_timestamp,datediff,to_date,col,create
     #高共线性特征剔除
     from DataProcessSpark import DeleteCollineFeatures
     dcf = DeleteCollineFeatures(IDcol, target, cor_cols, colline_threshold=0.8)
-        # IDcol key字段，如jdpin
+        # IDcol key字段，
         # target 分类模型目标字段，如 is_buy
         # colline_threshold:默认值0.8，即两个特征的皮尔逊相关性高于0.8时其中一个会被剔除，如果是分类问题，与target相关性较弱的会被剔除，如果是聚类问题，会随机剔除一个
     df = dcf(df)
@@ -229,13 +229,7 @@ class DealOutliers(JavaTransformer, JavaMLReadable, JavaMLWritable):
         end_time = time.time()
         print('time cost for DealOutliers transform process is:', end_time-start_time)
         return dataset
-
-
-
-
-
-
-
+       
 
 def delete_colline_features(dataset, IDcol, target, ignor_cols, colline_threshold=0.9):
     drop_cols,corr = [],[]
