@@ -1,0 +1,80 @@
+# -*- coding: utf-8 -*-
+import os
+import sys
+import math
+import datetime
+import numpy as np
+import pandas as pd
+from scipy import stats
+from datetime import datetime
+from pyspark.sql import SQLContext
+from pyspark.sql import SparkSession
+import pyspark.sql.functions as fn
+
+spark = SparkSession.builder.appName("ETL").enableHiveSupport().getOrCreate()
+
+def psi_calc_pyspark(actual,predict,columnname,bins=10):
+    '''
+    功能: 计算PSI值，并输出实际和预期占比分布曲线
+    输入值:
+    actual: 一维数组或series，代表训练集模型得分
+    predict: 一维数组或series，代表测试集模型得分
+    bins: 违约率段划分个数
+    输出值: 
+    字典，键值关系为{'psi': PSI值，'psi_fig': 实际和预期占比分布曲线}
+    '''
+    psi_dict = {}
+    actual = actual.sort(columnname)
+    predict = predict.sort(columnname)
+    actual_len = actual.count()
+    predict_len = predict.count()
+    psi_cut = []
+    actual_bins = []
+    predict_bins = []
+    actual_min = actual.agg(fn.min(actual[columnname])).collect()
+    actual_min = actual_min[0]['min({0})'.format(columnname)]
+    actual_max = actual.agg(fn.max(actual[columnname])).collect()
+    actual_max = actual_max[0]['max({0})'.format(columnname)]
+    cuts = []
+    binlen = (actual_max-actual_min) / bins
+    for i in range(1, bins):
+        cuts.append(actual_min+i*binlen)
+    for i in range(1, (bins+1)):
+        if i == 1:
+            lowercut = float('-Inf')
+            uppercut = cuts[i-1]
+        elif i == bins:
+            lowercut = cuts[i-2]
+            uppercut = float('Inf')
+        else:
+            lowercut = cuts[i-2]
+            uppercut = cuts[i-1]
+        actual_cnt = actual.filter((actual[columnname] >= lowercut) & (actual[columnname] < uppercut)).count()+1
+        predict_cnt = predict.filter((predict[columnname] >= lowercut) & (predict[columnname] < uppercut)).count()+1
+        actual_pct = (actual_cnt+0.0) / actual_len
+        predict_pct = (predict_cnt+0.0) / predict_len
+        psi_cut.append((actual_pct-predict_pct) * math.log(actual_pct/predict_pct))
+        actual_bins.append(actual_pct)
+        predict_bins.append(predict_pct)
+    psi = sum(psi_cut)
+    nbins = len(actual_bins)
+    xlab = np.arange(1, nbins+1)
+    psi_dict['psi'] = psi
+    return psi_dict
+
+
+if __name__ == '__main__':
+    try:
+        date_start = sys.argv[1] #'20180914'
+        date_end = sys.argv[2]
+    except KeyboardInterrupt:
+        pass
+    indexs = ['inv_desire','current_fin','load_desire','fun_desire','bank_desire','stock_desire']
+    for index in indexs:
+        sql_s= "select jdpin ," + index + " from ft_tmp.bank_sleep_customers_probability where dt='"+ date_start + "'"
+        sql_e= "select jdpin ," + index + " from ft_tmp.bank_sleep_customers_probability where dt='"+ date_end+ "'"
+        data_s = spark.sql(sql_s)
+        data_e = spark.sql(sql_e)
+        psi_s = psi_calc_pyspark(data_s.select(index),data_e.select(index),index,bins=10)
+        print("-----------------the psi of front {} : {}-----------------".format(index ,psi_s))
+
