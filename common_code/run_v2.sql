@@ -19,16 +19,16 @@ today=`date +"%Y%m%d"`
 #++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++#
 #+++++++++++++++++++++++++++++需要输入的参数++++++++++++++++++++++++++++++#
 #获取数据前，统一查看所涉及的表的数据是否可靠
-tables=(ft_app.ftapp_ybr_a_s_m ft_app.ftapp_ybr_b_s_m ft_app.ftapp_zr_s_m dmt.dmt_tags_lhyy_fin_icbc_a_d)
+tables=(ft_app.table1 ft_app.table2 ft_app.table3 dmt.table4)
 #提取特征存储表
-table_feas=ft_tmp.useful_features_from_bz
+table_feas=ft_tmp.useful_features
 #提取标签存储表：临时表
-table_index=ft_tmp.bank_sleep_customers_indexs_${today}
-table_all=ft_tmp.bank_sleep_customers_${today}
+table_index=ft_tmp._indexs_${today}
+table_all=ft_tmp.b_customers_${today}
 #数据存储表：
-#各模型验证用户预测数据：ft_tmp.yhj_{classifier}_{flag}_probability1
-#各模型全量用户预测数据：ft_tmp.yhj_{classifier}_{flag}_probability1_all
-#各模型最终聚合结果数据：ft_tmp.bank_sleep_customers_probability (dt='20181010')
+#各模型验证用户预测数据：ft_tmp._{classifier}_{flag}_probability1
+#各模型全量用户预测数据：ft_tmp._{classifier}_{flag}_probability1_all
+#各模型最终聚合结果数据：ft_tmp.customers_probability (dt='20181010')
 
 #++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++#
 #+++++++++++++++++++++++step1：最新分区是否有数据++++++++++++++++++++++++++#
@@ -152,7 +152,7 @@ echo "step6...save data ...time cost...: $((end_time-start_time)) s"
 start_time=`date +%s`
 if (( $flag == 0 ))&&(( $state1==0 ))&&(( $state2==0 ))&&(( $state3==0 ))&&(( $state4==0 ))&&(( $state5==0 )); then
     hive -S -e "
-    USE ft_tmp;
+    USE ft_p;
     DROP TABLE if EXISTS $table_index;
     DROP TABLE if EXISTS $table_all;
     "
