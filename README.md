@@ -6,8 +6,8 @@
     • Machine Learning. Published by Springer.
 
 ##  二、Kaggle Competition Source Code
-    [wiki challenge](https://github.com/hammer/wikichallenge) - solution to Wikipedia's Participation Challenge on Kaggle
-    [kaggle insults]() - Kaggle Submission for "Detecting Insults in Social Commentary"
+    [wiki challenge] (https://github.com/hammer/wikichallenge) - solution to Wikipedia's Participation Challenge on Kaggle
+    [kaggle insults] (https://github.com/amueller/kaggle_insults) - Kaggle Submission for "Detecting Insults in Social Commentary"
     kaggle_acquire-valued-shoppers-challenge - Code for the Kaggle acquire valued shoppers challenge
     kaggle-cifar - Code for the CIFAR-10 competition at Kaggle, uses cuda-convnet
     kaggle-blackbox - Deep learning made easy
