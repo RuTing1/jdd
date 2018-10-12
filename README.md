@@ -24,6 +24,7 @@
 7. [A.I - Berkeley](https://courses.edx.org/courses/BerkeleyX/CS188x_1/1T2013/courseware/) by Dan Klein and Pieter Abbeel (2013)
 8. [A.I - MIT](http://ocw.mit.edu/courses/electrical-engineering-and-computer-science/6-034-artificial-intelligence-fall-2010/lecture-videos/) by Patrick Henry Winston (2010)
 9. [Vision and learning](http://web.mit.edu/course/other/i2course/www/vision_and_learning_fall_2013.html) - computers and brains by Shimon Ullman, Tomaso Poggio, Ethan Meyers @ MIT (2013)
+10. [deeplearning.ai](deeplearning.ai)
 
 ## 四、papers
 1. [CMU’s list of papers](http://deeplearning.cs.cmu.edu/)
