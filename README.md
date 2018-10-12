@@ -6,7 +6,7 @@
 5.  Machine Learning. Published by Springer.
 
 ##  二、Kaggle Competition Source Code
-• Detecting Insults in Social Commentary: (https://github.com/amueller/kaggle_insults) 
+1.  [Detecting Insults in Social Commentary](https://github.com/amueller/kaggle_insults) 
 • acquire valued shoppers: (https://github.com/MLWave/kaggle_acquire-valued-shoppers-challenge)
 • Predicting job salaries from ads：(https://github.com/zygmuntz/kaggle-advertised-salaries)
 • Amazon access control challenge:(https://github.com/zygmuntz/kaggle-amazon)
