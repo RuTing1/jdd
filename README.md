@@ -3,9 +3,9 @@
 2.  Conference on Neural Information Processing Systems (NIPS).
 3.  Annual Conference on Learning Theory (COLT).
 4.  Journal of Machine Learning Research (JMLR). This top journal is freely available online at www.jmlr.org.
-5.  Machine Learning. Published by Springer.
+5.  MachineL]earning. Published by Springer.
 
-##  二、Kaggle Competition Source Code
+##  二、[Kaggle](https://www.kaggle.com/) Competition Source Code
 1.  [Detecting Insults in Social Commentary](https://github.com/amueller/kaggle_insults) 
 2.  [acquire valued shoppers](https://github.com/MLWave/kaggle_acquire-valued-shoppers-challenge)
 3.  [Predicting job salaries from ads](https://github.com/zygmuntz/kaggle-advertised-salaries)
