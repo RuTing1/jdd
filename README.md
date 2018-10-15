@@ -48,3 +48,9 @@
 1. deeplearning.net
 2. deeplearning.stanford.edu
     
+## 八、最好材料
+1. RNN
+- [Understand Recurrent Neural Network](http://karpathy.github.io/2015/05/21/rnn-effectiveness/),Andrey Karpathy
+
+2. LSTM
+- [ Understand LSTM Network ](http://colah.github.io/posts/2015-08-Understanding-LSTMs/),Colah
