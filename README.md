@@ -15,8 +15,10 @@
 7.  [wine-quality](http://fastml.com/predicting-wine-quality/)
     
 ##  三、Courses
-1. [Machine Learning -英文](https://class.coursera.org/ml-005) - Stanford by Andrew Ng in Coursera (2010-2014)
-   [Machine Learning -中文](http://open.163.com/special/opencourse/machinelearning.html) - Stanford by Andrew Ng in Coursera (2010-2014)   
+1. Andrew Ng
+- [Machine Learning -英文](https://class.coursera.org/ml-005) - Stanford by Andrew Ng in Coursera (2010-2014)
+- [Machine Learning -中文](http://open.163.com/special/opencourse/machinelearning.html) - Stanford by Andrew Ng in Coursera (2010-2014) 
+- [deep learning](https://mooc.study.163.com/smartSpec/detail/1001319001.htm) - by Andrew Ng
 2. [Machine Learning](http://work.caltech.edu/lectures.html) - Caltech by Yaser Abu-Mostafa (2012-2014)
 3. [Machine Learning](http://www.cs.cmu.edu/~tom/10701_sp11/lectures.shtml) - Carnegie Mellon by Tom Mitchell (Spring 2011)
 4. [Neural Networks for Machine Learning](https://class.coursera.org/neuralnets-2012-001) by Geoffrey Hinton in Coursera (2012)
@@ -25,8 +27,9 @@
 7. [A.I - Berkeley](https://courses.edx.org/courses/BerkeleyX/CS188x_1/1T2013/courseware/) by Dan Klein and Pieter Abbeel (2013)
 8. [A.I - MIT](http://ocw.mit.edu/courses/electrical-engineering-and-computer-science/6-034-artificial-intelligence-fall-2010/lecture-videos/) by Patrick Henry Winston (2010)
 9. [Vision and learning](http://web.mit.edu/course/other/i2course/www/vision_and_learning_fall_2013.html) - computers and brains by Shimon Ullman, Tomaso Poggio, Ethan Meyers @ MIT (2013)
-10. [deeplearning.ai](deeplearning.ai)
-    [deep learning-中文](https://mooc.study.163.com/smartSpec/detail/1001319001.htm) - by Andrew Ng
+10. deeplearning
+- [deeplearning.ai](deeplearning.ai)
+
     
 
 ## 四、papers
