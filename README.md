@@ -34,6 +34,9 @@
 
 ## 四、papers
 1. [CMU’s list of papers](http://deeplearning.cs.cmu.edu/)
+2. [arXiv](http://arxiv.org)
+3. [arXiv-sanity](http://www.arxiv-sanity.com)
+4. [google scholar](http://scholar.google.co.uk)
 
 ## 五、Tutorials
 1. [UFLDL Tutorial 1](http://deeplearning.stanford.edu/wiki/index.php/UFLDL_Tutorial)
@@ -53,9 +56,15 @@
 ## 七、WebSites
 1. deeplearning.net
 2. deeplearning.stanford.edu
+3.[Karpathy's blog](http://Karpathy.github.io)
+4.[Colah's blog](http://colah.github.io)
+5.[Wildml's blog](http://wildml.com)
     
 ## 八、最好材料
-1.github
+0. 经验总结
+- [tensorlayer tricks](http://github.com/wagamamaz/tensorlayer-tricks)
+- [GAN tricks](http://github.com/soumith/ganhacks)
+1. github
 - [tensorlayer](https://github.com/RuTing1/tensorlayer)
 - 
 2. RNN
@@ -64,4 +73,5 @@
 3. LSTM
 - [paper: LONG SHORT-TERM MEMORY](http://www.bioinf.jku.at/publications/older/2604.pdf)
 - [ Understand LSTM Network ](http://colah.github.io/posts/2015-08-Understanding-LSTMs/),Colah
+
 
