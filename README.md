@@ -59,6 +59,7 @@
 3.[Karpathy's blog](http://Karpathy.github.io)
 4.[Colah's blog](http://colah.github.io)
 5.[Wildml's blog](http://wildml.com)
+6.[TensorFlow深度学习，一篇文章就够了](http://blog.jobbole.com/105602/)
     
 ## 八、最好材料
 0. 经验总结
