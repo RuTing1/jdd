@@ -37,6 +37,9 @@
 2. [arXiv](http://arxiv.org)
 3. [arXiv-sanity](http://www.arxiv-sanity.com)
 4. [google scholar](http://scholar.google.co.uk)
+5. [Tensorflow](http://download.tensorflow.org/paper/whitepaper2015.pdf)
+6. [Wide & Deep Learning for Recommender Systems](https://arxiv.org/pdf/1606.07792v1.pdf)
+7. [The YouTube video recommendation system](https://pdfs.semanticscholar.org/e7d5/3f538f5239739d1f943c81d17e4a167c65c6.pdf)
 
 ## 五、Tutorials
 1. [UFLDL Tutorial 1](http://deeplearning.stanford.edu/wiki/index.php/UFLDL_Tutorial)
