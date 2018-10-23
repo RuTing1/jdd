@@ -70,7 +70,8 @@
 - [GAN tricks](http://github.com/soumith/ganhacks)
 1. github
 - [tensorlayer](https://github.com/RuTing1/tensorlayer)
-- 
+- [tensorflow_examples](https://github.com/tobegit3hub/tensorflow_examples)
+- [tensorflow_template_application](https://github.com/tobegit3hub/tensorflow_template_application)实现了TFRecords、QueueRunner、Checkpoint、TensorBoard、Inference、GPU支持、分布式训练和多层神经网络模型等特性，而且可以轻易拓展实现Wide and deep等模型，在实际的项目开发中可以直接下载使用
 2. RNN
 - [Understand Recurrent Neural Network](http://karpathy.github.io/2015/05/21/rnn-effectiveness/),Andrey Karpathy
 
