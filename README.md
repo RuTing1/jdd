@@ -15,6 +15,7 @@
 7.  [wine-quality](http://fastml.com/predicting-wine-quality/)
     
 ##  三、Courses
+0.  Pre-requisites for deep learning
 1. Andrew Ng
 - [Machine Learning -英文](https://class.coursera.org/ml-005) - Stanford by Andrew Ng in Coursera (2010-2014)
 - [Machine Learning -中文](http://open.163.com/special/opencourse/machinelearning.html) - Stanford by Andrew Ng in Coursera (2010-2014) 
@@ -29,6 +30,12 @@
 9. [Vision and learning](http://web.mit.edu/course/other/i2course/www/vision_and_learning_fall_2013.html) - computers and brains by Shimon Ullman, Tomaso Poggio, Ethan Meyers @ MIT (2013)
 10. deeplearning
 - [deeplearning.ai](deeplearning.ai)
+11. Sequence Prediction/Time Series
+- [Sequence Models by Andrew Ng](https://www.coursera.org/learn/nlp-sequence-models)
+- [Essentials of Deep Learning : Introduction to Long Short Term Memory](https://www.analyticsvidhya.com/blog/2017/12/fundamentals-of-deep-learning-introduction-to-lstm/)
+- [The Unreasonable Effectiveness of Recurrent Neural Networks](http://karpathy.github.io/2015/05/21/rnn-effectiveness/)
+- [Understanding LSTM Networks](http://colah.github.io/posts/2015-08-Understanding-LSTMs/)
+- [Recurrent Neural Networks & LSTMs](https://ayearofai.com/rohan-lenny-3-recurrent-neural-networks-10300100899b)
 
     
 
@@ -78,5 +85,8 @@
 3. LSTM
 - [paper: LONG SHORT-TERM MEMORY](http://www.bioinf.jku.at/publications/older/2604.pdf)
 - [ Understand LSTM Network ](http://colah.github.io/posts/2015-08-Understanding-LSTMs/),Colah
+
+4.基础概念讲解
+- [Fundamentals of Deep Learning – Starting with Artificial Neural Network](https://www.analyticsvidhya.com/blog/2016/03/introduction-deep-learning-fundamentals-neural-networks/)
 
 
