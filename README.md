@@ -1,4 +1,4 @@
-##  一、顶级会议
+##  一、Conference
 1.  International Conference on Machine Learning (ICML).
 2.  Conference on Neural Information Processing Systems (NIPS).
 3.  Annual Conference on Learning Theory (COLT).
@@ -39,7 +39,7 @@
 
     
 
-## 四、papers
+## 四、Papers
 1. [CMU’s list of papers](http://deeplearning.cs.cmu.edu/)
 2. [arXiv](http://arxiv.org)
 3. [arXiv-sanity](http://www.arxiv-sanity.com)
@@ -71,7 +71,7 @@
 5.[Wildml's blog](http://wildml.com)
 6.[TensorFlow深度学习，一篇文章就够了](http://blog.jobbole.com/105602/)
     
-## 八、最好材料
+## 八、Experience and Code
 0. 经验总结
 - [tensorlayer tricks](http://github.com/wagamamaz/tensorlayer-tricks)
 - [GAN tricks](http://github.com/soumith/ganhacks)
