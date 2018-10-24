@@ -86,7 +86,7 @@
 - [paper: LONG SHORT-TERM MEMORY](http://www.bioinf.jku.at/publications/older/2604.pdf)
 - [ Understand LSTM Network ](http://colah.github.io/posts/2015-08-Understanding-LSTMs/),Colah
 
-4.基础概念讲解
+4. 基础概念讲解
 - [Fundamentals of Deep Learning – Starting with Artificial Neural Network](https://www.analyticsvidhya.com/blog/2016/03/introduction-deep-learning-fundamentals-neural-networks/)
 
 5. tune parameter
