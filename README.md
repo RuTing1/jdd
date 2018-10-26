@@ -1,6 +1,6 @@
 ##### This script is used to record my learning process of deep learning
-# 0.神经网络调参技巧
--  **1.调参顺序** <br/>
+# 1.神经网络调参技巧
+-  **0.调参顺序** <br/>
    &nbsp;&nbsp;先调整学习率，观察成本函数下降的速率，修正学习率，一方面快速下降，另一方面防止不收敛；<br/>
    &nbsp;&nbsp;再调整隐藏层额数目；<br/>
    &nbsp;&nbsp;再调整隐藏层结点数目；逐渐增加，准确率理论上应该是先增大，后减小；<br/>
