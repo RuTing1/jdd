@@ -2,11 +2,11 @@
 #获取最大分区时间
 max_partition(){
     partition="set hive.cli.print.header=flase;
-    show partitions $1;"
-    max_part=`hive -S -e  "$partition" | grep '^dt' | sort | tail -n 1` #取最新的分区
-    echo ${max_part:3:10}
+    SELECT dt,COUNT(*) FROM $1 WHERE dt BETWEEN '${yesterday_mago}' AND '${yesterday}' GROUP BY dt;"
+    max_part=`hive -S -e  "$partition" | awk '$2>1000'| sort -nr -k 1 | head -n 1 ` #取最新有数据的分区
+    echo "$1 $max_part"
 }
-date1=`max_partition 'ft_app.ftapp_ybr_a_s_m'`
+date1=`max_partition 'ft_app.ftapp_ybr_a_s_m' | awk '{print $2}'`
 #根据表及字段获取字段最新有效分区
 max_partition(){
     partition="set hive.cli.print.header=flase;
