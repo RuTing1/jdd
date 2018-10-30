@@ -7,6 +7,25 @@ max_partition(){
     echo ${max_part:3:10}
 }
 date1=`max_partition 'ft_app.ftapp_ybr_a_s_m'`
+#根据表及字段获取字段最新有效分区
+max_partition(){
+    partition="set hive.cli.print.header=flase;
+    SELECT dt,COUNT(*) FROM $1 WHERE dt BETWEEN '${yesterday_mago}' AND '${yesterday}' GROUP BY dt;"
+    max_part=`hive -S -e  "$partition" | awk '$2>1000'| sort -nr -k 1 | head | awk '{print $1}' ` #取最近有数据的10个分区
+    int=1
+    cnt=1
+    while (("$cnt<2"))
+    do
+      date_i=`echo $max_part | awk '{print $"'$int'"}'`
+      cnt=`hive -S -e "set hive.cli.print.header=flase; 
+      SELECT $2,COUNT(*) FROM $1 WHERE dt='${date_i}' GROUP BY $2" | wc -l `
+      let "int++"
+    done
+    echo $date_i  #取最近有数据的分区
+}
+date2=`max_partition 'ft_app.ftapp_ybr_a_s_m' user_log_acct`
+#数组排序
+# date[1]=`(echo ${date_a[@]} | tr ' ' '\n' | sort -nr )`
 
 #获取时间
 yesterday=`date +"%Y-%m-%d" -d "-1 days"`
