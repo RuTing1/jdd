@@ -1,5 +1,5 @@
 #!/bin/bash
-#Created on 20181010
+#Created on 20181030
 #author: dingru1
 #this script is used to control for running marketing models,contains:
 #1.know your tables: 最新分区是否有数据，Y-转2，N-stop
