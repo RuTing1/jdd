@@ -90,58 +90,58 @@ else
       LEFT JOIN
       (
       SELECT user_jrid user_id
-        FROM  dwd.dwd_wallet_crpl_loan_apply_i_d 
+        FROM 
         GROUP BY user_jrid
       UNION 
       SELECT jd_pin  user_id
-        FROM   dwb.dwb_bt_order_s_d
+        FROM   
         WHERE  dt = '$yesterday' and bizcode = '32'
-        GROUP BY jd_pin
+        GROUP BY 
       ) load_users ON all_users.user_id = load_users.user_id
   LEFT JOIN 
       (
-      SELECT jd_pin user_id
+      SELECT  user_id
         FROM dwd.dwd_basic_fin_fund_trade_s_d 
         WHERE dt='$yesterday' AND sell_type IN ('基金直销','基金代销') 
               AND tx_type='purch' AND is_tx_succ=1 AND jd_pin IS NOT NULL 
-        GROUP BY jd_pin  
+        GROUP BY 
       ) fund_users ON all_users.user_id = fund_users.user_id
   LEFT JOIN
       (
-      SELECT jdpin user_id
+      SELECT  user_id
         FROM dwd.dwd_app_jr_fp_trade_history_i_d 
         WHERE trade_type=0 AND valid_sign='1' AND trade_state='00'
-        GROUP BY jdpin
+        GROUP BY 
       ) bank_users ON all_users.user_id = bank_users.user_id
   LEFT JOIN
       (
       SELECT user_id
-        FROM dmt.dmt_tags_lhyy_fin_icbc_a_d
+        FROM 
       --  WHERE dt='${dates[1]}' AND (fin_qyhz_f0007976=1 OR sec_stock_f0000736=1)
         WHERE dt='${dates[1]}' AND fin_fin_f0002792=1
       )current_users ON all_users.user_id = current_users.user_id
   LEFT JOIN
       (
       SELECT pin user_id
-          FROM dwd.dwd_fin_stock_apply_account_s_d
+          FROM 
           WHERE dt='$yesterday' AND yn=1 AND result='ok'
           AND pin IS NOT NULL
           GROUP BY pin
       UNION
       SELECT pin user_id
-          FROM dwd.dwd_fin_stock_apply_account_anxin_s_d
+          FROM 
           WHERE dt='$yesterday' AND yn=1 AND result='ok'
           AND pin IS NOT NULL
           GROUP BY pin
       UNION
       SELECT user_id
-          FROM dmt.dmt_tags_lhyy_fin_icbc_a_d
+          FROM 
           WHERE  dt='${dates[2]}' AND fin_fund_f0002098=5
       )stock_users ON all_users.user_id = stock_users.user_id
     LEFT JOIN
       (
       SELECT user_id
-          FROM dmt.dmt_tags_lhyy_jdmall_icbc_1_a_d
+          FROM 
           WHERE dt='${dates[3]}' AND pay_syt_f0013 IN (2,3)
       ) card_desire ON all_users.user_id = card_desire.user_id
   ;"
@@ -216,7 +216,7 @@ else
           ,actu_pay_amt_last_3
           ,actu_pay_amt_incr_last_12
           ,sale_ord_cnt_last_12
-        FROM ft_app.ftapp_ybr_b_s_m 
+        FROM 
         WHERE dt='${dates[0]}' 
     )a
   LEFT JOIN
@@ -225,7 +225,7 @@ else
           ,amt_order_car
           ,amt_virtual_order
           ,pct_amt_virtual_vs_tot
-        FROM ft_app.ftapp_zr_s_m 
+        FROM 
         WHERE dt='${dates[5]}'
     ) b ON a.user_log_acct=b.user_log_acct
   LEFT JOIN 
@@ -239,7 +239,7 @@ else
     (
     SELECT user_id
           ,mem_mem_f0005266 
-        FROM dmt.dmt_tags_lhyy_fin_icbc_a_d 
+        FROM 
         WHERE dt='${dates[4]}'
     ) d ON a.user_log_acct=d.user_id
   ) a;"
