@@ -1,0 +1,28 @@
+SELECT score, COUNT(is_fun) AS total, SUM(is_fun) AS buy_cnt
+FROM
+    (
+    SELECT CASE WHEN probability1 <0.05 AND probability1>=0 THEN '[0,0.05)'
+                WHEN probability1 <0.1 AND probability1>=0.05 THEN '[0.05,0.1)'
+                WHEN probability1 <0.15 AND probability1>=0.1 THEN '[0.1,0.15)'
+                WHEN probability1 <0.2 AND probability1>=0.15 THEN '[0.15,0.2)'
+                WHEN probability1 <0.25 AND probability1>=0.2 THEN '[0.2,0.25)'
+                WHEN probability1 <0.3 AND probability1>=0.25 THEN '[0.25,0.3)'
+                WHEN probability1 <0.35 AND probability1>=0.3 THEN '[0.3,0.35)'
+                WHEN probability1 <0.4 AND probability1>=0.35 THEN '[0.35,0.4)'
+                WHEN probability1 <0.45 AND probability1>=0.4 THEN '[0.4,0.45)'
+                WHEN probability1 <=0.5 AND probability1>=0.45 THEN '[0.45,0.5)'
+                WHEN probability1 <=0.55 AND probability1>=0.5 THEN '[0.5,0.55)'
+                WHEN probability1 <=0.6 AND probability1>=0.55 THEN '[0.55,0.6)'
+                WHEN probability1 <=0.65 AND probability1>=0.6 THEN '[0.6,0.65)'
+                WHEN probability1 <=0.7 AND probability1>=0.65 THEN '[0.65,0.7)'
+                WHEN probability1 <=0.75 AND probability1>=0.7 THEN '[0.7,0.75)'
+                WHEN probability1 <=0.8 AND probability1>=0.75 THEN '[0.75,0.8)'
+                WHEN probability1 <=0.85 AND probability1>=0.8 THEN '[0.8,0.85)'
+                WHEN probability1 <=0.9 AND probability1>=0.85 THEN '[0.85,0.9)'
+                WHEN probability1 <=0.95 AND probability1>=0.9 THEN '[0.9,0.95)'
+                WHEN probability1 <=1.0 AND probability1>=0.95 THEN '[0.95,1.0]'
+          ELSE NULL END score,
+          is_fun
+    FROM ft_tmp.yhj_DecisionTreeClassifier_is_fun_probability1_all
+    )c
+    GROUP BY score;
