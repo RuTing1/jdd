@@ -36,15 +36,7 @@ target = 'is_buy'
 #获取数据
 def get_data():
     #准备数据源,[表名，dt，字段（第一个字段为主key）]
-    target_df = spark.sql("SELECT all_users.jdpin jdpin") #取得目标用户
-    tbls ={'tb0':["ft_app.ftapp_ybr_a_s_m",'dt',['jdpin','mob_bt','danbizuida','dizhiwendingxing','dingdanshu','shifujine']],
-           'tb1':["ft_app.ftapp_zr_s_m",'dt',['user_log_acct','amt_total_offer']],
-           'tb2':["dmt.dmt_tags_yhj_cnhk_pred_model_a_d",'dt',['user_id','pay_syt_f0014']],
-           'tb3':["dmt.dmt_tags_yhj_cnhk_pred_model_1_a_d",'dt',['user_id','jdmall_up_m0016','jdmall_up_m0001']],
-           'tb4':["dmt.dmt_tags_yhj_cnhk_pred_model_03_a_d",'dt',['user_id','jdmall_user_p0035','jdmall_jdmuser_p0002816','jdmall_user_p0033']],
-           'tb5':["dmt.dmt_tags_yhj_cnhk_pred_model_05_a_d",'dt',['user_id','mem_mem_f0005266']],
-           'tb6':["ft_app.ftapp_ybr_b_s_m",'dt',['user_log_acct','sku_cnt_last_12','user_ord_until_now']]
-           }
+
     tbls_feas = [] 
     for i in range(0,len(tbls)):
         tbl_index = 'tb' + str(i)
