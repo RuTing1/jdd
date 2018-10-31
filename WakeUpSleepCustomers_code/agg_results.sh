@@ -28,7 +28,7 @@ done
 sql0="
 USE ft_tmp;
 CREATE TABLE IF NOT EXISTS bank_sleep_customers_probability_v2(
-                jdpin                  STRING   COMMENT    '用户pin',
+                user_id                  STRING   COMMENT    '用户pin',
                 inv_desire             DOUBLE   COMMENT    '投资意愿',
                 load_desire            DOUBLE   COMMENT    '借贷意愿',
                 current_fin            DOUBLE   COMMENT    '活期产品投资意愿分',
@@ -40,7 +40,7 @@ CREATE TABLE IF NOT EXISTS bank_sleep_customers_probability_v2(
                 markt_senstivity       BIGINT   COMMENT    '促销敏感度',
                 profession             BIGINT   COMMENT    '职业预测',
                 city_level             BIGINT   COMMENT    '城市预测',             
-                user_aging             BIGINT   COMMENT    '京东商城账龄等级'            
+                user_aging             BIGINT   COMMENT    ''            
 )COMMENT '用户金融属性刻画' PARTITIONED BY (dt STRING COMMENT '操作日期')
 ROW FORMAT DELIMITED FIELDS TERMINATED BY '\t' STORED AS TEXTFILE;
 "
@@ -123,7 +123,7 @@ LEFT JOIN
 测
           ,CASE WHEN jdmall_jdmuser_p0002816 =-9999 THEN -1 WHEN jdmall_jdmuser_p0002816<>0 THEN jdmall_jdmuser_p0002816 ELSE -1 END city_level--城
 市级别
-        FROM dmt.dmt_tags_lhyy_jdmall_icbc_1_a_d
+        FROM 
         WHERE dt= '${dates[0]}'
     )label_reflect ON inv_desire.jdpin = label_reflect.jdpin
 LEFT JOIN
