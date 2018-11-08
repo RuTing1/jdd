@@ -1,0 +1,17 @@
+import tensorflow as tf 
+
+x = tf.ones([2,3])
+#矩阵乘法
+sess = tf.InteractiveSession()
+x = tf.constant([1,2,3,4],shape=[2,2])
+y = tf.constant([5,6,7,8],shape=[2,2])
+print(sess.run(tf.matmul(x,y)))  #矩阵乘法
+print(sess.run(tf.multiply(x,y)))  #矩阵点乘
+print(sess.run(x * y))  #矩阵点乘
+
+#placeholder
+x = tf.placeholder(tf.float32, shape=[None,3], name='x') #定义行数任意，列数为3的输入
+W = tf.Variable([[1.0,2.0,3.0]]) #定义矩阵
+y = tf.matmul(x, tf.transpose(W)) #定义操作函数
+W.initializer.run() #参数被使用前需要初始化
+out = sess.run(y, feed_dict={x:[[1.0,2.0,3.0],[0,3.0,0]]})
