@@ -83,5 +83,6 @@
 
 # 4.专题调参
 - cnn [CS231n Convolutional Neural Networks for Visual Recognition](http://cs231n.github.io/neural-networks-2/#init)
+- RBM [A Practical Guide to Training Restricted Boltzmann Machines](http://www.trade2win.com/boards/attachments/trading-software/96700d1290910624-3rd-generation-nn-deep-learning-deep-belief-nets-restricted-boltzmann-machines-practical-guide-training-rbm.pdf)
 
 
