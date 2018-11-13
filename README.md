@@ -18,6 +18,7 @@
   &nbsp;&nbsp;最简单的方法：让W和b服从N(0, 1 / sqrt(n_in) )，n_in：输入神经元的个数；<br/>
   &nbsp;&nbsp;设置合适的W和b可以加快学习的速率，在极个别的神经网络中，W和b甚至可以影响最后训练的准确度。<br/>
 - **4.loss函数选择哪一个**  <br/>
+  &nbsp;&nbsp;对于分类问题，我们最常见的损失函数依旧是SVM hinge loss和Softmax互熵损失<br/>
 - **5.选择何种Regularization？L1,L2**  <br/>
   &nbsp;&nbsp;L1和L2是对cost函数后面增加一项; <br/> 
   &nbsp;&nbsp;L2即权值衰减; <br/> 
