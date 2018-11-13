@@ -1,7 +1,8 @@
 ##### This script is used to record my learning process of deep learning
 # 1.神经网络调参技巧
 -  **0.调参顺序** <br/>
-   &nbsp;&nbsp;先调整学习率，观察成本函数下降的速率，修正学习率，一方面快速下降，另一方面防止不收敛；<br/>
+   &nbsp;&nbsp;先调整学习率（一般开始设置0.1，然后除2或5），观察成本函数下降的速率，修正学习率，一方面快速下降，另一方面防止不收敛；<br/>
+   &nbsp;&nbsp;mini-batch的大小；<br/>
    &nbsp;&nbsp;再调整隐藏层额数目；<br/>
    &nbsp;&nbsp;再调整隐藏层结点数目；逐渐增加，准确率理论上应该是先增大，后减小；<br/>
    &nbsp;&nbsp;固定参数，调整其他变量；<br/>
@@ -18,7 +19,8 @@
   &nbsp;&nbsp;设置合适的W和b可以加快学习的速率，在极个别的神经网络中，W和b甚至可以影响最后训练的准确度。<br/>
 - **4.loss函数选择哪一个**  <br/>
 - **5.选择何种Regularization？L1,L2**  <br/>
-   &nbsp;&nbsp;L1和L2是对cost函数后面增加一项; <br/> 
+  &nbsp;&nbsp;L1和L2是对cost函数后面增加一项; <br/> 
+  &nbsp;&nbsp;L2即权值衰减; <br/> 
 - **6.Regularization parameter lambda 选择多大合适**  <br/>
   &nbsp;&nbsp;实验lambda，从1.0,10,100…找到一个合适的; <br/>
   &nbsp;&nbsp;注意：lambda的大小和样本数成正比关系，如样本数、lambda分别是1000、0.4，当样本数为10000时，对应的lambda也要扩大到4。 <br/>
@@ -26,6 +28,7 @@
   &nbsp;&nbsp;先使用tanh函数作为隐藏层的激活函数。虽然ReLU函数收敛快，但如果学习率或者隐藏层结点数目一开始设置不好，很容易产生震荡，无法收敛。相反tanh函数就稳定一点。 <br/>
   &nbsp;&nbsp;只能靠实验比较 <br/>
 - **8.是否使用dropout** <br/>
+  &nbsp;&nbsp;dropout（） 的参数可以从0.1开始调，以0.05为间隔，各个网络有不同的参数；所放的位置也有很大的影响，不一定要在全连接层后<br/>
 - **9.训练集多大比较合适**  <br/>
 - **10.mini-batch选择多大**  <br/>
   &nbsp;&nbsp;mini-batch选择太小：没有充分利用计算资源；<br/>
@@ -34,10 +37,11 @@
 - **11.学习率多少合适** <br/>
   &nbsp;&nbsp;优化器Adam的时候，lr=0.001; <br/>
   &nbsp;&nbsp;优化器SGD的时候，lr=0.01 <br/>
+  &nbsp;&nbsp; 可以使用动态学习率，也可以先是大的学习率，然后慢慢减小，每次对半减小，寻找最优学习率
 - **12.选择何种梯度下降算法**  <br/>
   &nbsp;&nbsp;对于初学者，选择SGD就可以
 - **13.何时停止Epoch训练** <br/>
-  &nbsp;&nbsp;迭代次数可以设置为1000或者更高，这个要结合样本量具体考量。在可以接受的时间范围内，将迭代次数设置的大一点。 <br/>
+  &nbsp;&nbsp;当准确率不再上升，可以增加学习次数，让网络充分学习，当然要防止过拟合。迭代次数可以设置为1000或者更高，这个要结合样本量具体考量。在可以接受的时间范围内，将迭代次数设置的大一点。 <br/>
   
 # 2.神经网络调参常遇问题汇总
 -  **0. loss变化及其原因** <br/>
@@ -74,5 +78,9 @@
 2. 从一个标准差为√2/n的高斯分布中初始化权重，其中n为输入的个数;
 3. 使用L2正则化(或者最大范数约束)和dropout来减少神经网络的过拟合;
 4. 对于分类问题，我们最常见的损失函数依旧是SVM hinge loss和Softmax互熵损失.
+
+
+# 4.专题调参
+- cnn [CS231n Convolutional Neural Networks for Visual Recognition](http://cs231n.github.io/neural-networks-2/#init)
 
 
