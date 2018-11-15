@@ -35,6 +35,7 @@
   &nbsp;&nbsp;mini-batch选择太小：没有充分利用计算资源；<br/>
   &nbsp;&nbsp;太大：更新权重和偏向比较慢；<br/>
   &nbsp;&nbsp;mini-batch size和其他参数相对独立，一旦找到一个合适的以后，就不需要再改了。 <br/>
+  &nbsp;&nbsp;iteration/step：每运行一个step,更新一次参数权重，进行一次学习，每次学习需要batch size个样本，假设有20000个样本，batch size为200，则 iteration=20000/200=100。 <br/>
 - **11.学习率多少合适** <br/>
   &nbsp;&nbsp;优化器Adam的时候，lr=0.001; <br/>
   &nbsp;&nbsp;优化器SGD的时候，lr=0.01 <br/>
