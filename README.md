@@ -87,7 +87,7 @@
 - RBM [A Practical Guide to Training Restricted Boltzmann Machines](http://www.trade2win.com/boards/attachments/trading-software/96700d1290910624-3rd-generation-nn-deep-learning-deep-belief-nets-restricted-boltzmann-machines-practical-guide-training-rbm.pdf)
 
 
-# 5.keras结构
+# 5.[keras结构](https://blog.csdn.net/sinat_26917383/article/details/72857454)
 - kears网络结构
 ![avatar](/images/keras1.jpg)
 - kears网络配置
