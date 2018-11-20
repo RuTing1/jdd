@@ -88,4 +88,7 @@
 
 
 # 5.keras结构
+- kears网络结构
 ![avatar](/images/keras1.jpg)
+- kears网络配置
+![avatar](/images/keras2.jpg)
