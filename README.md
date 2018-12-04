@@ -13,6 +13,17 @@
   &nbsp;&nbsp;训练集、验证集的个数要比较小，这样可以加快训练的速度，其他的参数先随便选择一个固定值; <br/>
 - **2.每层神经元的个数** <br/>
   &nbsp;&nbsp;单隐藏层神经网络：视问题的复杂程度决定，简单线性可分，两个即可，复杂可以安排8个或者以上；<br/>
+  &nbsp;&nbsp;方法1： fangfaGorman指出隐层结点数s与模式数N的关系是：s＝log<sub>2</sub>n（n为输入层结点数）；<br/>
+  &nbsp;&nbsp;方法二：Kolmogorov定理表明，隐层结点数s＝2n＋1（n为输入层结点数）；<br/>
+  &nbsp;&nbsp;方法三： s＝sqrt（0.43mn＋0.12nn＋2.54m＋0.77n＋0.35）＋0.51（m是输入层的个数，n是输出层的个数）<br/>
+  &nbsp;&nbsp;方法四： s＝sqrt（mn)（m是输入层的个数，n是输出层的个数）<br/>
+  &nbsp;&nbsp;方法五： s＝sqrt（m+n) + z（m是输入层的个数，n是输出层的个数, z[1,10]）<br/>
+  
+--------------------- 
+作者：开心果汁 
+来源：CSDN 
+原文：https://blog.csdn.net/u013421629/article/details/78329191 
+版权声明：本文为博主原创文章，转载请附上博文链接！
   
 - **3.如何初始化Weights和biases** <br/>
   &nbsp;&nbsp;最简单的方法：让W和b服从N(0, 1 / sqrt(n_in) )，n_in：输入神经元的个数；<br/>
